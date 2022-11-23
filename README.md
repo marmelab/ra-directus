@@ -22,25 +22,10 @@ This should initialize a project with the `products` and `articles` collections 
 ### Initial setup
 
 - Clone this project
-- Update `packages/demo/src/App.tsx` with your Directus project URL :
+- Setup environment variables. You can do this by creating a `.env` file in `packages-demo`. The following variable is required:
 
-```jsx
-// in packages/demo/src/App.tsx
-import * as React from "react";
-import { Admin, Resource } from 'react-admin';
-import { directusDataProvider } from 'ra-directus';
-
-import { PostList } from './posts';
-
-const App = () => (
-    <Admin dataProvider={dataProvider}>
-        <Resource name="products" {...products} />
-        <Resource name="articles" {...articles} />
-        <Resource name="directus_users" {...users} />
-    </Admin>
-);
-
-export default App;
+```
+VITE_DIRECTUS_URL=http://my-app.directus.app
 ```
 
 - Run `make install build-ra-directus run` to install the dependencies and start the Demo App

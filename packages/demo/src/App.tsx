@@ -5,7 +5,7 @@ import articles from './articles';
 import products from './products';
 import users from './users';
 
-const dataProvider = directusDataProvider('https://uewvwryj.directus.app');
+const dataProvider = directusDataProvider(import.meta.env.VITE_DIRECTUS_URL);
 
 const App = () => (
     <Admin dataProvider={dataProvider}>

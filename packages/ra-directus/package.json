@@ -2,7 +2,10 @@
     "name": "ra-directus",
     "version": "1.0.0",
     "repository": "git@github.com:marmelab/ra-directus.git",
-    "author": "Thibault Barrat <thibault@marmelab.com> (https://marmelab.com/)",
+    "authors": [
+        "Thibault Barrat <thibault@marmelab.com> (https://marmelab.com/)",
+        "Gildas Garcia <gildas@marmelab.com> (https://marmelab.com/)"
+    ],
     "license": "MIT",
     "files": [
         "*.md",
@@ -15,11 +18,10 @@
     "types": "esm/index.d.ts",
     "sideEffects": false,
     "peerDependencies": {
-        "ra-core": "*"
+        "ra-core": "^4.7.0"
     },
     "dependencies": {
-        "jwt-decode": "^3.1.2",
-        "react-admin": "^4.5.2"
+        "jwt-decode": "^3.1.2"
     },
     "scripts": {
         "build": "yarn run build-cjs && yarn run build-esm",

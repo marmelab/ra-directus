@@ -4,13 +4,14 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "start": "vite",
+    "start": "vite --force",
     "build": "tsc && vite build",
     "preview": "vite preview"
   },
   "dependencies": {
+    "ra-directus": "*",
     "react": "^18.2.0",
-    "react-admin": "^4.5.2",
+    "react-admin": "^4.7.0",
     "react-dom": "^18.2.0"
   },
   "devDependencies": {

@@ -11,7 +11,7 @@ import users from './users';
 
 const dataProvider = directusDataProvider(
     import.meta.env.VITE_DIRECTUS_URL,
-    httpClient
+    httpClient()
 );
 const authProvider = directusAuthProvider(import.meta.env.VITE_DIRECTUS_URL);
 

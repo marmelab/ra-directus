@@ -38,51 +38,6 @@ import {
  *
  * export default App;
  */
-
-const generateFilter = (filter: any) => {
-    delete filter['search'];
-    delete filter['q'];
-    if (Object.keys(filter).length === 0) {
-        return undefined;
-    }
-    let directusFilter: Record<string, string | {}> = {};
-    for (const key in filter) {
-        let field: string;
-        let operator: string;
-        if (key.includes('/')) {
-            [field, operator] = key.split('/');
-        } else {
-            field = key;
-            // By default we use _eq operator if the value is boolean, _contains in other cases
-            operator = `${
-                typeof filter[key] === 'boolean' ? '_eq' : '_contains'
-            }`;
-        }
-        directusFilter = {
-            ...directusFilter,
-            [field]: {
-                [operator]: filter[key],
-            },
-        };
-    }
-    const directusFilterKeys = Object.keys(directusFilter);
-    if (directusFilterKeys.length > 1) {
-        directusFilter = {
-            _and: directusFilterKeys.map(key => ({
-                [key]: directusFilter[key],
-            })),
-        };
-    }
-    return directusFilter;
-};
-
-const getDirectusEndpoint = (resource: string, apiBaseUrl: string) => {
-    if (resource.startsWith('directus_')) {
-        return `${apiBaseUrl}/${resource.replace('directus_', '')}`;
-    }
-    return `${apiBaseUrl}/items/${resource}`;
-};
-
 export const directusDataProvider = (
     apiBaseUrl: string,
     httpClient = fetchUtils.fetchJson
@@ -197,3 +152,47 @@ export const directusDataProvider = (
             body: JSON.stringify(params.ids),
         }).then(() => ({ data: params.ids })),
 });
+
+const generateFilter = (filter: any) => {
+    delete filter['search'];
+    delete filter['q'];
+    if (Object.keys(filter).length === 0) {
+        return undefined;
+    }
+    let directusFilter: Record<string, string | {}> = {};
+    for (const key in filter) {
+        let field: string;
+        let operator: string;
+        if (key.includes('/')) {
+            [field, operator] = key.split('/');
+        } else {
+            field = key;
+            // By default we use _eq operator if the value is boolean, _contains in other cases
+            operator = `${
+                typeof filter[key] === 'boolean' ? '_eq' : '_contains'
+            }`;
+        }
+        directusFilter = {
+            ...directusFilter,
+            [field]: {
+                [operator]: filter[key],
+            },
+        };
+    }
+    const directusFilterKeys = Object.keys(directusFilter);
+    if (directusFilterKeys.length > 1) {
+        directusFilter = {
+            _and: directusFilterKeys.map(key => ({
+                [key]: directusFilter[key],
+            })),
+        };
+    }
+    return directusFilter;
+};
+
+const getDirectusEndpoint = (resource: string, apiBaseUrl: string) => {
+    if (resource.startsWith('directus_')) {
+        return `${apiBaseUrl}/${resource.replace('directus_', '')}`;
+    }
+    return `${apiBaseUrl}/items/${resource}`;
+};

@@ -137,6 +137,66 @@ const App = () => (
 );
 ```
 
+## Auth Provider
+
+### Supported Authentication Methods
+
+We currently only support authentication using Directus local provider (email/password).
+
+### Limitations
+
+Although refresh token are handled transparently, users might see an error notification when the refresh happens after an authentication error occurred while using the dataProvider. This will be fixed in react-admin `4.8`.
+
+### Usage
+
+```js
+import { Admin, Resource } from 'react-admin';
+import {
+    directusDataProvider,
+    directusAuthProvider,
+    httpClient,
+} from 'ra-directus';
+import { PostList } from './posts';
+
+const dataProvider = directusDataProvider(
+    'http://my-app.directus.app',
+    httpClient()
+);
+const authProvider = directusAuthProvider('http://my-app.directus.app');
+
+const App = () => (
+    <Admin dataProvider={dataProvider} authProvider={authProvider}>
+        <Resource name="posts" list={PostList} />
+    </Admin>
+);
+
+export default App;
+```
+
+### `getIdentity` Support
+
+The default `getIdentity` method return the user full name as `{LAST_NAME} {FIRST_NAME}`.
+
+You can customize it using the `getIdentityFullName` option:
+
+```js
+const authProvider = directusAuthProvider('http://my-app.directus.app', {
+    getIdentityFullName: user => `${user.first_name} ${user.last_name}`
+});
+```
+
+### Authentication Tokens Storage
+
+By default, authentication storage tokens are stored in the [localStorage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage).
+
+If you want them to be stored in [sessionStorage](https://developer.mozilla.org/en-US/docs/Web/API/Window/sessionStorage) instead, use the `storage` option:
+
+```js
+const authProvider = directusAuthProvider('http://my-app.directus.app', {
+    storage: window.sessionStorage
+});
+```
+
 ## License
 
 This data provider is licensed under the MIT License, and sponsored by [marmelab](https://marmelab.com).

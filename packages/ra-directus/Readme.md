@@ -15,6 +15,29 @@ yarn add ra-directus
 npm install --save ra-directus
 ```
 
+## Usage
+
+To get a dataProvider and an authProvider configured with automatic auth token refresh, call the `getDirectusProviders` function.
+
+```jsx
+import { Admin, Resource } from 'react-admin';
+import { getDirectusProviders } from 'ra-directus';
+import products from './products';
+
+const { authProvider, dataProvider } = getDirectusProviders(
+    import.meta.env.VITE_DIRECTUS_URL, {
+        storage: window.sessionStorage, // Optional, defaults to localStorage
+        getIdentityFullName: user => user.email // Optional, defaults to `${user.last_name} ${user.first_name}`
+    }
+);
+
+const App = () => (
+    <Admin dataProvider={dataProvider} authProvider={authProvider}>
+        <Resource name="products" {...products} />
+    </Admin>
+);
+```
+
 ## Data Provider
 
 ### REST Dialect
@@ -154,13 +177,13 @@ import { Admin, Resource } from 'react-admin';
 import {
     directusDataProvider,
     directusAuthProvider,
-    httpClient,
+    directusHttpClient,
 } from 'ra-directus';
 import { PostList } from './posts';
 
 const dataProvider = directusDataProvider(
     'http://my-app.directus.app',
-    httpClient()
+    directusHttpClient()
 );
 const authProvider = directusAuthProvider('http://my-app.directus.app');
 

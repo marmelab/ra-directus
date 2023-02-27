@@ -1,5 +1,10 @@
 import { fetchUtils } from 'react-admin';
 
+/**
+ * A function that returns an HTTP client to use with react-admin and Directus. It adds the Authorization request headers.
+ * @param storage The Web Storage to use for the auth token. Defaults to localStorage.
+ * @returns An HTTP client to use with react-admin and Directus.
+ */
 export const directusHttpClient = (storage: Storage = localStorage) => (
     url: string,
     options: fetchUtils.Options = {}

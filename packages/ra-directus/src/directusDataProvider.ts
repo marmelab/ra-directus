@@ -22,21 +22,32 @@ import {
  * updateMany       => PATCH http://my.api.url/items/posts
  * delete           => DELETE http://my.api.url/items/posts/123
  *
- * @example
- *
+ * @example Basic Usage
  * import * as React from "react";
  * import { Admin, Resource } from 'react-admin';
- * import directusDataProvider from 'ra-directus';
+ * import { directusDataProvider } from 'ra-directus';
  *
  * import { PostList } from './posts';
  *
- * const App = () => (
+ * export const App = () => (
  *     <Admin dataProvider={directusDataProvider('http://my-app.directus.app')}>
  *         <Resource name="posts" list={PostList} />
  *     </Admin>
  * );
  *
- * export default App;
+ * @example With Automatic AuthToken Refresh
+ * import { Admin, Resource } from 'react-admin';
+ * import { directusDataProvider, directusRefreshAuthToken, addRefreshAuthToDataProvider } from '@react-admin/ra-directus';
+ * import { PostList } from './posts';
+ *
+ * const refreshAuthToken = directusRefreshAuthToken('https://my.api.url');
+ * const dataProvider = addRefreshAuthToDataProvider(directusDataProvider('https://my.api.url'), refreshAuthToken);
+ *
+ * export const App = () => (
+ *     <Admin dataProvider={dataProvider}>
+ *         <Resource name="posts" list={PostList} />
+ *     </Admin>
+ * );
  */
 export const directusDataProvider = (
     apiBaseUrl: string,

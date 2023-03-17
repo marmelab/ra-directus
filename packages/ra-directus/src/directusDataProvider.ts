@@ -56,15 +56,21 @@ export const directusDataProvider = (
     getList: (resource, params) => {
         const { page, perPage } = params.pagination;
         const { field, order } = params.sort;
-        const search = params.filter.search || params.filter.q;
-        const filter = generateFilter(params.filter);
+        const {
+            q: queryFilter,
+            search: searchFilter,
+            ...otherFilters
+        } = params.filter;
+
+        const search = searchFilter || queryFilter;
+        const filter = generateFilter(otherFilters);
         const query = {
+            search,
             filter: JSON.stringify(filter),
             page,
             limit: perPage,
             sort: order === 'ASC' ? field : `-${field}`,
             meta: '*',
-            search,
         };
         const url = `${getDirectusEndpoint(resource, apiBaseUrl)}?${stringify(
             query
@@ -100,12 +106,21 @@ export const directusDataProvider = (
     getManyReference: (resource, params) => {
         const { page, perPage } = params.pagination;
         const { field, order } = params.sort;
+        const {
+            q: queryFilter,
+            search: searchFilter,
+            ...otherFilters
+        } = params.filter;
+
+        const search = searchFilter || queryFilter;
         const filter = {
             [params.target]: {
+                ...generateFilter(otherFilters),
                 _eq: params.id,
             },
         };
         const query = {
+            search,
             filter: JSON.stringify(filter),
             page,
             limit: perPage,
@@ -165,8 +180,6 @@ export const directusDataProvider = (
 });
 
 const generateFilter = (filter: any) => {
-    delete filter['search'];
-    delete filter['q'];
     if (Object.keys(filter).length === 0) {
         return undefined;
     }

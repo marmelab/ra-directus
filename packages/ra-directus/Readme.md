@@ -94,11 +94,10 @@ const httpClient = (url, options = {}) => {
 };
 const dataProvider = directusDataProvider('http://my-app.directus.app', httpClient);
 
-render(
+export const MyAdmin = () => (
     <Admin dataProvider={dataProvider} title="Example Admin">
        ...
-    </Admin>,
-    document.getElementById('root')
+    </Admin>
 );
 ```
 
@@ -168,7 +167,7 @@ We currently only support authentication using Directus local provider (email/pa
 
 ### Limitations
 
-Although refresh token are handled transparently, users might see an error notification when the refresh happens after an authentication error occurred while using the dataProvider. This will be fixed in react-admin `4.8`.
+Although refresh token are handled transparently, users might see an error notification when the refresh happens after an authentication error occurred while using the dataProvider. This will be fixed in react-admin `4.9.0`.
 
 ### Usage
 

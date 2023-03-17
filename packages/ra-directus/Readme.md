@@ -165,10 +165,6 @@ const App = () => (
 
 We currently only support authentication using Directus local provider (email/password).
 
-### Limitations
-
-Although refresh token are handled transparently, users might see an error notification when the refresh happens after an authentication error occurred while using the dataProvider. This will be fixed in react-admin `4.9.0`.
-
 ### Usage
 
 ```js

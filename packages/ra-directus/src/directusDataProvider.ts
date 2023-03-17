@@ -212,8 +212,6 @@ const generateFilter = (filter: any) => {
     return directusFilter;
 };
 
-// {"_and":{"slug":{"_starts_with":"profit"},"author":{"_eq":"ecb50f9e-2cd8-43ca-95a9-3b0997b5c3b0"}}}
-// {"_and":[{"author":{"_eq":"ecb50f9e-2cd8-43ca-95a9-3b0997b5c3b0"}},{"slug":{"_starts_with":"pro"}}]}
 const getDirectusEndpoint = (resource: string, apiBaseUrl: string) => {
     if (resource.startsWith('directus_')) {
         return `${apiBaseUrl}/${resource.replace('directus_', '')}`;

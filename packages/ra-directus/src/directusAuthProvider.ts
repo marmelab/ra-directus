@@ -148,7 +148,7 @@ export const directusAuthProvider = (
         getPermissions: async () => {
             const auth = JSON.parse(localStorage.getItem('auth'));
             if (!auth) {
-                return [];
+                return undefined;
             }
             const { access_token } = auth;
 

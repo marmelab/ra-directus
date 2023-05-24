@@ -50,7 +50,7 @@ export const getDirectusProviders = (
         httpClient ?? directusHttpClient(storage)
     );
 
-    const refreshAuthToken = directusRefreshAuthToken(apiBaseUrl);
+    const refreshAuthToken = directusRefreshAuthToken(apiBaseUrl, storage);
 
     return {
         authProvider: addRefreshAuthToAuthProvider(

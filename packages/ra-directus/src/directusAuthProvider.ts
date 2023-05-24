@@ -81,13 +81,13 @@ export const directusAuthProvider = (
                     throw new Error(response.statusText);
                 }
                 const { data } = await response.json();
-                localStorage.setItem('auth', JSON.stringify(data));
+                storage.setItem('auth', JSON.stringify(data));
             } catch (error) {
                 throw error;
             }
         },
         logout: async () => {
-            const auth = JSON.parse(localStorage.getItem('auth'));
+            const auth = JSON.parse(storage.getItem('auth'));
             if (!auth) {
                 return;
             }
@@ -105,7 +105,7 @@ export const directusAuthProvider = (
             if (response.status < 200 || response.status >= 300) {
                 throw new Error(response.statusText);
             }
-            localStorage.removeItem('auth');
+            storage.removeItem('auth');
         },
         checkAuth: async () => {
             const auth = JSON.parse(storage.getItem('auth'));
@@ -122,7 +122,7 @@ export const directusAuthProvider = (
             return Promise.resolve();
         },
         getIdentity: async () => {
-            const auth = JSON.parse(localStorage.getItem('auth'));
+            const auth = JSON.parse(storage.getItem('auth'));
             if (!auth) {
                 return;
             }
@@ -146,7 +146,7 @@ export const directusAuthProvider = (
             };
         },
         getPermissions: async () => {
-            const auth = JSON.parse(localStorage.getItem('auth'));
+            const auth = JSON.parse(storage.getItem('auth'));
             if (!auth) {
                 return undefined;
             }

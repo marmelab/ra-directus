@@ -1,6 +1,6 @@
 {
     "name": "ra-directus",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "repository": "git@github.com:marmelab/ra-directus.git",
     "authors": [
         "Thibault Barrat <thibault@marmelab.com> (https://marmelab.com/)",

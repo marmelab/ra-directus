@@ -1,6 +1,6 @@
 {
     "name": "ra-directus",
-    "version": "1.0.1",
+    "version": "1.1.0",
     "repository": "git@github.com:marmelab/ra-directus.git",
     "authors": [
         "Thibault Barrat <thibault@marmelab.com> (https://marmelab.com/)",
@@ -18,7 +18,7 @@
     "types": "esm/index.d.ts",
     "sideEffects": false,
     "peerDependencies": {
-        "ra-core": "^4.7.0"
+        "ra-core": "^4.9.0"
     },
     "dependencies": {
         "jwt-decode": "^3.1.2"

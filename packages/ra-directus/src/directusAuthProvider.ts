@@ -32,8 +32,8 @@ export type GetIdentityFullName = (user: UserType) => string;
  * );
  *
  * @example With Automatic AuthToken Refresh
- * import { Admin, Resource } from 'react-admin';
- * import { directusAuthProvider, directusRefreshAuthToken, addRefreshAuthToAuthProvider } from '@react-admin/ra-directus';
+ * import { Admin, Resource, addRefreshAuthToAuthProvider } from 'react-admin';
+ * import { directusAuthProvider, directusRefreshAuthToken } from '@react-admin/ra-directus';
  * import { PostList } from './posts';
  *
  * const refreshAuthToken = directusRefreshAuthToken('https://my.api.url');

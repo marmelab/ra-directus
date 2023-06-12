@@ -36,8 +36,8 @@ import {
  * );
  *
  * @example With Automatic AuthToken Refresh
- * import { Admin, Resource } from 'react-admin';
- * import { directusDataProvider, directusRefreshAuthToken, addRefreshAuthToDataProvider } from '@react-admin/ra-directus';
+ * import { Admin, Resource, addRefreshAuthToDataProvider } from 'react-admin';
+ * import { directusDataProvider, directusRefreshAuthToken } from '@react-admin/ra-directus';
  * import { PostList } from './posts';
  *
  * const refreshAuthToken = directusRefreshAuthToken('https://my.api.url');

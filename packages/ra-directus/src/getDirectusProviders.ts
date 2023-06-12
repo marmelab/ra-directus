@@ -1,5 +1,7 @@
-import { addRefreshAuthToAuthProvider } from './addRefreshAuthToAuthProvider';
-import { addRefreshAuthToDataProvider } from './addRefreshAuthToDataProvider';
+import {
+    addRefreshAuthToDataProvider,
+    addRefreshAuthToAuthProvider,
+} from 'ra-core';
 import { directusRefreshAuthToken } from './directusRefreshAuthToken';
 import {
     directusAuthProvider,

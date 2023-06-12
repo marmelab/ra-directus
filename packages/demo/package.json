@@ -11,7 +11,7 @@
     "dependencies": {
         "ra-directus": "*",
         "react": "^18.2.0",
-        "react-admin": "^4.7.0",
+        "react-admin": "^4.9.0",
         "react-dom": "^18.2.0"
     },
     "devDependencies": {

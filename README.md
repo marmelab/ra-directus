@@ -2,15 +2,19 @@
 
 Directus Data Provider & Auth Provider for [react-admin](https://github.com/marmelab/react-admin), the frontend framework for building admin applications on top of REST/GraphQL services.
 
+[![Documentation]][DocumentationLink] 
+[![Source Code]][SourceCodeLink] 
+
+[Documentation]: https://img.shields.io/badge/Documentation-green?style=for-the-badge
+[Source Code]: https://img.shields.io/badge/Source_Code-blue?style=for-the-badge
+
+[DocumentationLink]: ./packages/ra-directus/Readme.md 'Documentation'
+[SourceCodeLink]: https://github.com/marmelab/ra-directus/tree/main/packages/ra-directus 'Source Code'
+
 This repository contains:
 
 - The actual `ra-directus` package
 - A simple demo app you can run locally to try out `ra-directus` with your own Directus app
-
-## The `ra-directus` package
-
-- Please have a look at the [DOCUMENTATION](./packages/ra-directus/Readme.md)
-- And also why not the [source code](https://github.com/marmelab/ra-directus/tree/main/src/packages/ra-directus)
 
 ## Simple Demo
 

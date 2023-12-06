@@ -5,7 +5,7 @@ Directus Data Provider & Auth Provider for [react-admin](https://github.com/marm
 [![Documentation]][DocumentationLink] 
 [![Source Code]][SourceCodeLink] 
 
-[Documentation]: https://img.shields.io/badge/Documentation-green?style=for-the-badge
+[Documentation]: https://img.shields.io/badge/Documentation-darkgreen?style=for-the-badge
 [Source Code]: https://img.shields.io/badge/Source_Code-blue?style=for-the-badge
 
 [DocumentationLink]: ./packages/ra-directus/Readme.md 'Documentation'

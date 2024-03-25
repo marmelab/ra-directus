@@ -18,21 +18,14 @@ This repository contains:
 
 ## Simple Demo
 
-### Prerequesites
-
-You need to have a [Directus](https://directus.io/) account and to create a new Community Cloud project with the Demo template.
-This should initialize a project with the `products` and `articles` collections which we are using in this demo.
-
 ### Initial setup
 
 - Clone this project
-- Setup environment variables. You can do this by creating a `.env` file in `packages-demo`. The following variable is required:
+- Run `make init run` to install the dependencies and start the Demo App
 
-```
-VITE_DIRECTUS_URL=http://my-app.directus.app
-```
+### Stop the Database
 
-- Run `make install build-ra-directus run` to install the dependencies and start the Demo App
+- Run `make stop-directus` to stop the database Docker container 
 
 ## License
 

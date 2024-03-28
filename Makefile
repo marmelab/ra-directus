@@ -6,6 +6,8 @@ help:
 init: ## initialize .env file
 	@echo "Initializing .env file...";
 	@cp ./packages/demo/.env.example ./packages/demo/.env
+	@echo "Initializing data.db file...";
+	@cp ./directus/database/data.db.template ./directus/database/data.db
 	$(MAKE) install
 	$(MAKE) build-ra-directus
 

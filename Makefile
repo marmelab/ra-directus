@@ -3,6 +3,14 @@
 help:
 	@grep -E '^[a-zA-Z0-9_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
+init: ## initialize .env and data.db file, install dependencies and build
+	@echo "Initializing .env file...";
+	@cp ./packages/demo/.env.example ./packages/demo/.env
+	@echo "Initializing data.db file...";
+	@cp ./directus/database/data.db.template ./directus/database/data.db
+	$(MAKE) install
+	$(MAKE) build-ra-directus
+
 install: package.json ## install dependencies
 	@if [ "$(CI)" != "true" ]; then \
 		echo "Full install..."; \
@@ -37,7 +45,15 @@ test-unit: ## launch unit tests
 	echo "Running unit tests...";
 	yarn -s test-unit;
 
-run-demo:
+start-directus: ## start local Directus
+	@echo "Starting Directus...";
+	@cd ./directus && docker compose up -d
+
+stop-directus: ## stop local Directus
+	@echo "Stopping Directus...";
+	@cd ./directus && docker compose down
+
+run-demo: ## start the demo app
 	@cd ./packages/demo && yarn start
 
-run: run-demo
+run: start-directus run-demo ## start the demo app with local Directus

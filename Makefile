@@ -3,7 +3,7 @@
 help:
 	@grep -E '^[a-zA-Z0-9_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
-init: ## initialize .env file
+init: ## initialize .env and data.db file, install dependencies and build
 	@echo "Initializing .env file...";
 	@cp ./packages/demo/.env.example ./packages/demo/.env
 	@echo "Initializing data.db file...";
@@ -45,15 +45,15 @@ test-unit: ## launch unit tests
 	echo "Running unit tests...";
 	yarn -s test-unit;
 
-start-directus:
+start-directus: ## start local Directus
 	@echo "Starting Directus...";
 	@cd ./directus && docker compose up -d
 
-stop-directus:
+stop-directus: ## stop local Directus
 	@echo "Stopping Directus...";
 	@cd ./directus && docker compose down
 
-run-demo:
+run-demo: ## start the demo app
 	@cd ./packages/demo && yarn start
 
-run: start-directus run-demo
+run: start-directus run-demo ## start the demo app with local Directus

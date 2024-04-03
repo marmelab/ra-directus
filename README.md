@@ -22,6 +22,12 @@ This repository contains:
 
 - Clone this project
 - Run `make init run` to install the dependencies and start the Demo App
+- Vite should show the local URL where the development server is running
+- Go to this url and login with:
+    - login: `admin@example.com`
+    - password: `d1r3ctu5` 
+- Your Directus environnement should run on this [http://localhost:8055/](http://localhost:8055/)
+- You can login with same credentials
 
 ### Stop the Database
 

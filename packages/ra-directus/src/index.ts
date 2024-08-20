@@ -1,7 +1,7 @@
 import {
     addRefreshAuthToAuthProvider as addRefreshAuthToAuthProviderCore,
     addRefreshAuthToDataProvider as addRefreshAuthToDataProviderCore,
-} from 'ra-core';
+} from 'react-admin';
 
 export * from './directusAuthProvider';
 export * from './directusDataProvider';

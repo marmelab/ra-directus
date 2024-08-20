@@ -1,7 +1,8 @@
 import {
     addRefreshAuthToDataProvider,
     addRefreshAuthToAuthProvider,
-} from 'ra-core';
+    fetchUtils,
+} from 'react-admin';
 import { directusRefreshAuthToken } from './directusRefreshAuthToken';
 import {
     directusAuthProvider,
@@ -9,7 +10,6 @@ import {
 } from './directusAuthProvider';
 import { directusHttpClient } from './directusHttpClient';
 import { directusDataProvider } from './directusDataProvider';
-import { fetchUtils } from 'ra-core';
 
 /**
  * A function that returns a dataProvider and an authProvider to use react-admin with Directus, configured to support automatic AuthToken refresh.

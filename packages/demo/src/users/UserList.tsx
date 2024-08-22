@@ -3,7 +3,7 @@ import { Datagrid, EmailField, List, TextField } from 'react-admin';
 
 const UserList = () => (
     <List>
-        <Datagrid rowClick="edit">
+        <Datagrid>
             <TextField source="id" />
             <TextField source="first_name" />
             <TextField source="last_name" />

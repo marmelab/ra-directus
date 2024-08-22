@@ -39,11 +39,6 @@ prettier: ## prettify the source code using prettier
 	@echo "Running prettier..."
 	@yarn -s prettier
 
-test: build test-unit lint ## launch all tests
-
-test-unit: ## launch unit tests
-	echo "Running unit tests...";
-	yarn -s test-unit;
 
 start-directus: ## start local Directus
 	@echo "Starting Directus...";
@@ -54,6 +49,6 @@ stop-directus: ## stop local Directus
 	@cd ./directus && docker compose down
 
 run-demo: ## start the demo app
-	@cd ./packages/demo && yarn start
+	@cd ./packages/demo && yarn dev
 
 run: start-directus run-demo ## start the demo app with local Directus

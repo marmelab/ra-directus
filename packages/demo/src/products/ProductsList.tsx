@@ -11,7 +11,7 @@ import {
 
 const ProductList = () => (
     <List>
-        <Datagrid rowClick="edit">
+        <Datagrid>
             <TextField source="id" />
             <TextField source="description" />
             <TextField source="name" />

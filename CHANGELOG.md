@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.0.0
+
+-   Upgrade `react-admin` to v5
+-   Change imports from `ra-core` to `react-admin`
+
 ## 1.1.0
 
 -   Remove `addRefreshAuthToDataProvider` and `addRefreshAuthToAuthProvider` methods that are included in `ra-core` since version `4.9.0`. 

@@ -47,9 +47,10 @@ export const getDirectusProviders = (
         storage,
         getIdentityFullName,
     });
+    const activeHttpClient = httpClient || directusHttpClient(storage);
     const dataProvider = directusDataProvider(
         apiBaseUrl,
-        httpClient ?? directusHttpClient(storage)
+        activeHttpClient
     );
 
     const refreshAuthToken = directusRefreshAuthToken(apiBaseUrl, storage);
@@ -63,7 +64,7 @@ export const getDirectusProviders = (
             dataProvider,
             refreshAuthToken
         ),
-        httpClient,
+        httpClient: activeHttpClient,
         refreshAuthToken,
     };
 };

@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.1.0
+
+-   Return the `httpClient` (default or provided) from `getDirectusProviders`
+
 ## 2.0.0
 
 -   Upgrade `react-admin` to v5

@@ -56,6 +56,7 @@ export const directusDataProvider = (
     getList: (resource, params) => {
         const { page, perPage } = params.pagination;
         const { field, order } = params.sort;
+        const { fields } = params.meta;
         const {
             q: queryFilter,
             search: searchFilter,
@@ -71,6 +72,7 @@ export const directusDataProvider = (
             limit: perPage,
             sort: order === 'ASC' ? field : `-${field}`,
             meta: '*',
+            fields: fields ? fields.join(',') : '*',
         };
         const url = `${getDirectusEndpoint(resource, apiBaseUrl)}?${stringify(
             query
@@ -81,21 +83,29 @@ export const directusDataProvider = (
             total: json.meta.filter_count,
         }));
     },
-    getOne: (resource, params) =>
-        httpClient(
-            `${getDirectusEndpoint(resource, apiBaseUrl)}/${params.id}`
-        ).then(({ json }) => ({
+    getOne: (resource, params) => {
+        const { fields } = params.meta;
+        const query = {
+            fields: fields ? fields.join(',') : '*',
+            meta: '*',
+        };
+        const url = `${getDirectusEndpoint(resource, apiBaseUrl)}/${params.id}?${stringify(
+            query
+        )}`;
+        return httpClient(url).then(({ json }) => ({
             data: json.data,
-        })),
-
+        }));
+    },
     getMany: (resource, params) => {
         const filter = {
             id: {
                 _in: params.ids,
             },
         };
+        const { fields } = params.meta;
         const query = {
             filter: JSON.stringify(filter),
+            fields: fields ? fields.join(',') : '*',
         };
         const url = `${getDirectusEndpoint(resource, apiBaseUrl)}?${stringify(
             query
@@ -106,6 +116,7 @@ export const directusDataProvider = (
     getManyReference: (resource, params) => {
         const { page, perPage } = params.pagination;
         const { field, order } = params.sort;
+        const { fields } = params.meta;
         const {
             q: queryFilter,
             search: searchFilter,
@@ -126,6 +137,7 @@ export const directusDataProvider = (
             limit: perPage,
             sort: order === 'ASC' ? field : `-${field}`,
             meta: '*',
+            fields: fields ? fields.join(',') : '*',
         };
         const url = `${getDirectusEndpoint(resource, apiBaseUrl)}?${stringify(
             query

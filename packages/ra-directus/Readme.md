@@ -25,9 +25,10 @@ import { getDirectusProviders } from 'ra-directus';
 import products from './products';
 
 const { authProvider, dataProvider } = getDirectusProviders(
-    import.meta.env.VITE_DIRECTUS_URL, {
+    import.meta.env.VITE_DIRECTUS_URL,
+    {
         storage: window.sessionStorage, // Optional, defaults to localStorage
-        getIdentityFullName: user => user.email // Optional, defaults to `${user.last_name} ${user.first_name}`
+        getIdentityFullName: user => user.email, // Optional, defaults to `${user.last_name} ${user.first_name}`
     }
 );
 
@@ -44,22 +45,22 @@ const App = () => (
 
 This Data Provider fits REST APIs powered by [Directus](https://directus.io/).
 
-| Method             | API calls                                                                                                |
-| ------------------ | -------------------------------------------------------------------------------------------------------- |
-| `getList`          | `GET http://my.api.url/items/posts?page=1&limit=10&sort=title&meta=*`                                    |
-| `getOne`           | `GET http://my.api.url/items/posts/123`                                                                  |
-| `getMany`          | `GET http://my.api.url/items/posts?filter={"id":{"_in":["123","456","789"]}}`                            |
-| `getManyReference` | `GET http://my.api.url/items/posts?filter={"author_id":{"_eq":119}}`                                     |
-| `create`           | `POST http://my.api.url/items/posts`                                                                     |
-| `update`           | `PATCH http://my.api.url/items/posts/123`                                                                |
-| `updateMany`       | `PATCH http://my.api.url/items/posts`                                                                    |
-| `delete`           | `DELETE http://my.api.url/items/posts/123`                                                               |
+| Method             | API calls                                                                              |
+| ------------------ | -------------------------------------------------------------------------------------- |
+| `getList`          | `GET http://my.api.url/items/posts?page=1&limit=10&sort=title&meta=*&fields=*`         |
+| `getOne`           | `GET http://my.api.url/items/posts/123`                                                |
+| `getMany`          | `GET http://my.api.url/items/posts?filter={"id":{"_in":["123","456","789"]}}&fields=*` |
+| `getManyReference` | `GET http://my.api.url/items/posts?filter={"author_id":{"_eq":119}}&fields=*`          |
+| `create`           | `POST http://my.api.url/items/posts`                                                   |
+| `update`           | `PATCH http://my.api.url/items/posts/123`                                              |
+| `updateMany`       | `PATCH http://my.api.url/items/posts`                                                  |
+| `delete`           | `DELETE http://my.api.url/items/posts/123`                                             |
 
 ### Usage
 
 ```jsx
 // in src/App.js
-import * as React from "react";
+import * as React from 'react';
 import { Admin, Resource } from 'react-admin';
 import { directusDataProvider } from 'ra-directus';
 
@@ -78,7 +79,7 @@ export default App;
 
 The provider function accepts an HTTP client function as second argument. By default, they use react-admin's `fetchUtils.fetchJson()` as HTTP client. It's similar to HTML5 `fetch()`, except it handles JSON decoding and HTTP error codes automatically.
 
-That means that if you need to add custom headers to your requests, you just need to *wrap* the `fetchJson()` call inside your own function:
+That means that if you need to add custom headers to your requests, you just need to _wrap_ the `fetchJson()` call inside your own function:
 
 ```jsx
 import { fetchUtils, Admin, Resource } from 'react-admin';
@@ -92,11 +93,14 @@ const httpClient = (url, options = {}) => {
     options.headers.set('X-Custom-Header', 'foobar');
     return fetchUtils.fetchJson(url, options);
 };
-const dataProvider = directusDataProvider('http://my-app.directus.app', httpClient);
+const dataProvider = directusDataProvider(
+    'http://my-app.directus.app',
+    httpClient
+);
 
 export const MyAdmin = () => (
     <Admin dataProvider={dataProvider} title="Example Admin">
-       ...
+        ...
     </Admin>
 );
 ```
@@ -109,7 +113,7 @@ Now all the requests to the REST API will contain the `X-Custom-Header: foobar` 
 const httpClient = (url, options = {}) => {
     options.user = {
         authenticated: true,
-        token: 'SRTRDFVESGNJYTUKTYTHRG'
+        token: 'SRTRDFVESGNJYTUKTYTHRG',
     };
     return fetchUtils.fetchJson(url, options);
 };
@@ -122,15 +126,9 @@ Now all the requests to the REST API will contain the `Authorization: SRTRDFVESG
 To search on all string and text fields: use `q` parameter.
 
 ```jsx
-const PostFilter = [
-    <TextInput source="q" label="Search" alwaysOn />,
-];
+const PostFilter = [<TextInput source="q" label="Search" alwaysOn />];
 
-const PostList = () => (
-    <List filters={<PostFilter />}>
-        ...
-    </List>
-);
+const PostList = () => <List filters={<PostFilter />}>...</List>;
 ```
 
 You can use [Directus filter operators](https://docs.directus.io/reference/filter-rules.html#filter-operators) by adding one operator in the `source` props separated by a `/` :
@@ -140,12 +138,56 @@ const PostFilter = [
     <DateInput source="publish_date/_gte" label="Published after" />,
 ];
 
-const PostList = () => (
-    <List filters={<PostFilter />}>
-        ...
-    </List>
-);
+const PostList = () => <List filters={<PostFilter />}>...</List>;
 ```
+
+### Fields
+
+By default, the data provider requests all fields `(fields=*)` from Directus.
+In some cases, especially when working with large collections or relational data, you may want to explicitly control which fields are fetched.
+
+The Directus data provider supports this via a `fields` array passed through `queryOptions.meta.fields`.
+
+#### Why use fields?
+
+- Reduce payload size
+
+- Improve performance
+
+- Avoid over-fetching relations
+
+- Explicitly control nested relational fields
+
+#### Usage
+
+You can pass a fields array using queryOptions on any react-admin view (List, Edit, Show, etc.):
+
+```jsx
+<Edit
+    resource="posts"
+    queryOptions={{
+        meta: {
+            fields: ['*', 'posts.author_id', 'posts.author_id.name'],
+        },
+    }}
+>
+    ...
+</Edit>
+```
+
+This will result in a Directus request similar to:
+
+`GET /items/posts?fields=*,order_items.id,order_items.order_id,order_items.quantity,order_items.product_id,order_items.unit_price`
+
+#### Nested & Relational Fields
+
+The fields option fully supports Directus relational paths using dot notation:
+
+```jsx
+fields: ['id', 'posts.author_id', 'posts.author_id.name'];
+```
+
+This allows precise selection of nested relational data while keeping the response minimal.
 
 ### Directus system collections
 
@@ -153,9 +195,9 @@ Directus has some system collections, for example `directus_users`. You can use 
 
 ```jsx
 const App = () => (
-  <Admin dataProvider={dataProvider}>
-    <Resource name="directus_users" list={UsersList} edit={UsersEdit} />
-  </Admin>
+    <Admin dataProvider={dataProvider}>
+        <Resource name="directus_users" list={UsersList} edit={UsersEdit} />
+    </Admin>
 );
 ```
 
@@ -199,7 +241,7 @@ You can customize it using the `getIdentityFullName` option:
 
 ```js
 const authProvider = directusAuthProvider('http://my-app.directus.app', {
-    getIdentityFullName: user => `${user.first_name} ${user.last_name}`
+    getIdentityFullName: user => `${user.first_name} ${user.last_name}`,
 });
 ```
 
@@ -211,7 +253,7 @@ If you want them to be stored in [sessionStorage](https://developer.mozilla.org/
 
 ```js
 const authProvider = directusAuthProvider('http://my-app.directus.app', {
-    storage: window.sessionStorage
+    storage: window.sessionStorage,
 });
 ```
 

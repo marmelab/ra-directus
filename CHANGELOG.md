@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 3.0.0
 
 - Publish modern ESM and CommonJS package exports ([#15](https://github.com/marmelab/ra-directus/pull/15))
 

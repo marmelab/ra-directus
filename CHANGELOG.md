@@ -1,5 +1,17 @@
 # Changelog
 
+## 3.0.0
+
+- Publish modern ESM and CommonJS package exports ([#15](https://github.com/marmelab/ra-directus/pull/15))
+
+### Breaking Changes
+
+`ra-directus` now publishes its ES modules and CommonJS builds in `dist/`, behind an [`exports`](https://nodejs.org/api/packages.html#package-entry-points) map. Only the package root can be imported, so these undocumented paths no longer resolve:
+
+- the old build folders: `ra-directus/lib/*` and `ra-directus/esm/*`
+- the sources: `ra-directus/src/*`, even though they are still published
+- the manifest: `ra-directus/package.json`
+
 ## 2.1.0
 
 -   Return the `httpClient` (default or provided) from `getDirectusProviders`

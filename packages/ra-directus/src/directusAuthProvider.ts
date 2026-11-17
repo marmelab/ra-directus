@@ -1,6 +1,12 @@
 import { AuthProvider, HttpError } from 'react-admin';
 import jwt_decode, { JwtPayload } from 'jwt-decode';
-import { UserType } from '@directus/sdk';
+
+// A Directus user, as returned by /users/me (custom fields allowed)
+type UserType = {
+    first_name: string | null;
+    last_name: string | null;
+    [field: string]: any;
+};
 
 const DefaultGetIdentityFullName = (user: UserType) =>
     `${user.last_name} ${user.first_name}`;

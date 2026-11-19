@@ -1,6 +1,15 @@
 import { AuthProvider, HttpError } from 'react-admin';
 import jwt_decode, { JwtPayload } from 'jwt-decode';
-import { UserType } from '@directus/sdk';
+
+// A Directus user, as returned by /users/me (custom fields allowed)
+export type UserType = {
+    id: string;
+    first_name: string | null;
+    last_name: string | null;
+    email: string | null;
+    avatar: string | null;
+    [field: string]: any;
+};
 
 const DefaultGetIdentityFullName = (user: UserType) =>
     `${user.last_name} ${user.first_name}`;
@@ -138,7 +147,7 @@ export const directusAuthProvider = (
             if (response.status < 200 || response.status >= 300) {
                 throw new HttpError(response.statusText, response.status);
             }
-            const { data } = await response.json();
+            const { data }: { data: UserType } = await response.json();
             return {
                 id: data.id,
                 fullName: getIdentityFullName(data),

@@ -9,7 +9,10 @@ export default defineConfig({
         alias: [
             {
                 find: `ra-directus`,
-                replacement: path.resolve(__dirname, `../ra-directus/src`),
+                replacement: path.resolve(
+                    import.meta.dirname,
+                    `../ra-directus/src`
+                ),
             },
         ],
     },

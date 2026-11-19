@@ -147,7 +147,7 @@ export const directusAuthProvider = (
             if (response.status < 200 || response.status >= 300) {
                 throw new HttpError(response.statusText, response.status);
             }
-            const { data } = await response.json();
+            const { data }: { data: UserType } = await response.json();
             return {
                 id: data.id,
                 fullName: getIdentityFullName(data),

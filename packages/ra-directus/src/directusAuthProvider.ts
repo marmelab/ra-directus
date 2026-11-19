@@ -2,9 +2,12 @@ import { AuthProvider, HttpError } from 'react-admin';
 import jwt_decode, { JwtPayload } from 'jwt-decode';
 
 // A Directus user, as returned by /users/me (custom fields allowed)
-type UserType = {
+export type UserType = {
+    id: string;
     first_name: string | null;
     last_name: string | null;
+    email: string | null;
+    avatar: string | null;
     [field: string]: any;
 };
 
